@@ -135,12 +135,23 @@ Sub UpdateFlowRateAndVolumeColumns()
     Next
 End Sub
 
-
+Sub ValidateWorkSheet(aSheet)
+    NumRows = aSheet.Cells(Rows.Count, 12).End(xlUp).Row
+    If NumRows > 2000 Then
+        NumRows = 2000
+    End If
+    
+    For x = 1 To NumRows - 2
+        If aSheet.Cells(x, 1).Interior.ColorIndex > 0 And aSheet.Cells(x, "S").Value = vbNullString Then
+            MsgBox ("Column 'S' is empty but should contain the flowrate. Worksheet = " & aSheet.Name)
+        End If
+    Next
+End Sub
 
 Sub ProcessAllWorkSheets(aSheet)
     Set TempSheet = Sheets("temp")
     'Set numrows = number of rows of data.
-    aSheet.Select
+    'aSheet.Select
     NumRows = aSheet.Cells(Rows.Count, 12).End(xlUp).Row
     
     
@@ -178,6 +189,7 @@ Sub ProcessAllWorkSheets(aSheet)
     trial = aSheet.Range("U2").Value
     frother = Results.Range("C2").Value
     
+    Call ValidateWorkSheet(aSheet)
     
     If NumRows > 10 Then
         'update columns with contant values and calculate volume
