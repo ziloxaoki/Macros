@@ -179,26 +179,29 @@ Sub ProcessAllWorkSheets(aSheet)
     frother = Results.Range("C2").Value
     
     
-    
-    'update columns with contant values and calculate volume
-    For x = 1 To NumRows - 2
-        TempSheet.Cells(x, "A").Value = conc
-        TempSheet.Cells(x, "B").Value = trial
-        TempSheet.Cells(x, "C").Value = frother
-        TempSheet.Cells(x, "H").Formula = "=" & 12.57 & "*" & TempSheet.Cells(x, "G").Value
-    Next
-    
-    DuplicateRowsAtEnd
-    
-    Call InsertTemp0Row(conc, trial, frother)
-    
-    UpdateFlowRateAndVolumeColumns
-    
-    'Auto fit columns
-    TempSheet.Columns("A:J").AutoFit
-    
-    'append data to final worksheet
-    AppendDataToFinalWorksheet
+    If NumRows > 10 Then
+        'update columns with contant values and calculate volume
+        For x = 1 To NumRows - 2
+            TempSheet.Cells(x, "A").Value = conc
+            TempSheet.Cells(x, "B").Value = trial
+            TempSheet.Cells(x, "C").Value = frother
+            TempSheet.Cells(x, "H").Formula = "=" & 12.57 & "*" & TempSheet.Cells(x, "G").Value
+        Next
+        
+        DuplicateRowsAtEnd
+        
+        Call InsertTemp0Row(conc, trial, frother)
+        
+        UpdateFlowRateAndVolumeColumns
+        
+        'Auto fit columns
+        TempSheet.Columns("A:J").AutoFit
+        
+        'append data to final worksheet
+        AppendDataToFinalWorksheet
+    Else
+        MsgBox ("Error processing sheet. conc = " & conc & ", trial = " & trial & ", flowrate = " & FlowRate)
+    End If
 End Sub
 
 
