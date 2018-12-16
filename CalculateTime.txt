@@ -1,0 +1,47 @@
+Sub CalculateTime()
+'UpdatebyExtendoffice20161222
+      Dim x As Integer
+      Application.ScreenUpdating = False
+      ' Set numrows = number of rows of data.
+      NumRows = Cells(Rows.Count, "A").End(xlUp).Row
+      ' Select cell a1.
+      Range("A1").Select
+      Dim counter As Double
+             
+      counter = 0
+      ' Establish "For" loop to loop "numrows" number of times.
+      For x = 0 To NumRows
+         ' Insert your code here.
+         ' Selects cell down 1 row from active cell.
+         Dim lab As String
+         Dim lab2 As String
+         lab = (ActiveCell.Offset(x, 1).Value)
+         lab2 = (ActiveCell.Offset(x + 1, 1).Value)
+         
+         ' Check if label is not empty
+         If Not ActiveCell.Offset(x + 1, 1).Value = vbNullString Then
+            Dim off1 As Integer
+            Dim off2 As Integer
+            
+            ' If first row is red time = 0
+            If ActiveCell.Offset(x + 1, 1).Interior.ColorIndex > 0 Then
+                ActiveCell.Offset(x + 1, 19).Value = 0.2
+                counter = 0
+            Else
+                If IsNumeric(myVar) Then
+                ' MsgBox lab
+                    off1 = CInt(Right(lab, 4))
+                    off2 = CInt(Right(lab2, 4))
+                    ' MsgBox off1 & " " & off2
+                End If
+                ' MsgBox off2 & "  " & off1
+                counter = counter + (0.2 * (off2 - off1))
+                ActiveCell.Offset(x + 1, 19).Value = counter + 0.2
+            End If
+            
+         End If
+      Next
+      Application.ScreenUpdating = True
+      Range("A1").Select
+End Sub
+
