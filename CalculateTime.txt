@@ -23,6 +23,13 @@ Sub CalculateTime()
             Dim off1 As Integer
             Dim off2 As Integer
             
+            'Validate t=0
+            If x > 2 And ActiveCell.Offset(x, 1).Interior.ColorIndex > 0 Then
+                If ActiveCell.Offset(x, 12).Value < ActiveCell.Offset(x - 1, 12).Value Then
+                    MsgBox "Incorrect t=0 row. Please validate row number " & x & ". " & ActiveCell.Offset(x, 12).Value & "<" & ActiveCell.Offset(x - 1, 12).Value
+                End If
+            End If
+            
             ' If first row is red time = 0
             If ActiveCell.Offset(x + 1, 1).Interior.ColorIndex > 0 Then
                 ActiveCell.Offset(x + 1, 19).Value = 0.2
@@ -44,4 +51,3 @@ Sub CalculateTime()
       Application.ScreenUpdating = True
       Range("A1").Select
 End Sub
-
