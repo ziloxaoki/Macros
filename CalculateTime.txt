@@ -26,8 +26,13 @@ Sub CalculateTime()
             'Validate t=0
             If x > 2 And ActiveCell.Offset(x, 1).Interior.ColorIndex > 0 Then
                 If ActiveCell.Offset(x, 12).Value < ActiveCell.Offset(x - 1, 12).Value Then
-                    MsgBox "Incorrect t=0 row. Please validate row number " & x & ". " & ActiveCell.Offset(x, 12).Value & "<" & ActiveCell.Offset(x - 1, 12).Value
+                    MsgBox "Incorrect t=0 row. Please validate row number " & (x + 1) & ". " & ActiveCell.Offset(x, 12).Value & "<" & ActiveCell.Offset(x - 1, 12).Value
                 End If
+            End If
+            
+            'Validate flowrate
+            If Trim(ActiveCell.Offset(x, 18).Value & vbNullString) = vbNullString And ActiveCell.Offset(x, 1).Interior.ColorIndex > 0 Then
+                MsgBox "Flowrate is missing. Please validate row number " & (x + 1) & ". "
             End If
             
             ' If first row is red time = 0
