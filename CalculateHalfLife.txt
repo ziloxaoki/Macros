@@ -57,13 +57,13 @@ Sub DuplicateRowsAtEnd()
     Loop
     'Next
     'duplicate 2 rows at the end of last row
-    'For y = 1 To 2
-    '    TempSheet.Rows(TempNumRows).Insert
-    '    TempSheet.Rows(TempNumRows - 1).Copy
-    '    TempSheet.Rows(TempNumRows).PasteSpecial xlPasteValues
-    '    TempSheet.Cells(TempNumRows, "I").Value = TempSheet.Cells(TempNumRows, "I").Value + 0.2
-    '    TempNumRows = TempNumRows + 1
-    'Next
+    TempNumRows = TempSheet.Cells(TempSheet.Rows.Count, "G").End(xlUp).Row + 1
+    For y = 1 To 2
+        TempSheet.Rows(TempNumRows).Insert
+        TempSheet.Rows(TempNumRows - 1).Copy
+        TempSheet.Rows(TempNumRows).PasteSpecial xlPasteValues
+        TempSheet.Cells(TempNumRows, "I").Value = TempSheet.Cells(TempNumRows, "I").Value + 0.2
+    Next
     
 End Sub
 
